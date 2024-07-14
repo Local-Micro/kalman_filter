@@ -14,7 +14,10 @@ namespace kalman_filter {
     void KalmanFilter::predict(float new_acce, float new_gryo) {
         float correct_acce = new_acce - Da;
         float correct_gryo = new_gryo - Dg;
-        Ds = Ds + (Wa * correct_acce) + (Wg * correct_gryo);
+
+        // 归一化
+        float sum = Wa + Wg;
+        Ds = Ds + ((Wa * correct_acce) + (Wg * correct_gryo)) / sum;
         Pr = Pr + Ss;
         Da = new_acce;
         Dg = new_gryo;
