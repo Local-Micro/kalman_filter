@@ -16,7 +16,11 @@ namespace kalman_filter{
              * @param sigma_gyro 陀螺仪传感器方差
             */
             KalmanFilter(float data, float prediction, float sigma_system, float sigma_acce, float sigma_gyro);
-            float calc(float, float);
+            /*
+             * @param acce 加速的传感器的值
+             * @param gryo 陀螺仪传感器的值
+             */
+            float calc(float acce, float gryo);
 
         private:
             float Pr; // 预测值方差
@@ -26,7 +30,8 @@ namespace kalman_filter{
             float Ws; // 系统预测值的权重
             float Wa; // 加速度传感器的权重
             float Wg; // 陀螺仪传感器的权重
-            void predict(float, float);
+
+            void predict(float new_acce, float new_gryo);
             void correct();
     };
 }
